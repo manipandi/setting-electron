@@ -41,7 +41,6 @@ class Setting {
 
     public get(propertyName: string) {
         try {
-            this.checkFileAccess();
             return fs.readJSONSync(this.filePath)[propertyName];
         } catch (err) {
             this.createFile();
@@ -51,15 +50,14 @@ class Setting {
 
     public async set(propertyName: string, value: string | object) {
         try {
-            await this.checkFileAccess();
             let settingObj = await fs.readJson(this.filePath);
             settingObj[propertyName] = value;
-            await fs.writeJSON(this.filePath, settingObj);
+            await fs.outputJSON(this.filePath, settingObj);
 
         } catch (err) {
-            let settingObj:any = new Object();
+            let settingObj: any = new Object();
             settingObj[propertyName] = value;
-            await fs.writeJSON(this.filePath, settingObj);
+            await fs.outputJSON(this.filePath, settingObj);
         }
 
     }
