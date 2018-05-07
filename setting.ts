@@ -5,7 +5,6 @@ class Setting {
 
     private static instance: Setting;
     public filePath: string;
-    public isAccessAvailable: boolean = false;
     public app = app || remote.app;
 
     private constructor() {
