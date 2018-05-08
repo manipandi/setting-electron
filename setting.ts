@@ -24,8 +24,10 @@ class Setting {
         try {
             // tslint:disable-next-line:no-bitwise
             await fs.access(this.filePath, fs.constants.R_OK | fs.constants.W_OK);
+            return 'done';
         } catch (err) {
             await this.createFile();
+            return 'fail';
         }
 
     }
@@ -33,8 +35,10 @@ class Setting {
     public async createFile() {
         try {
             await fs.readJSON(this.filePath);
+            return 'done';
         } catch (err) {
             await fs.outputJSON(this.filePath, {});
+            return 'fail';
         }
 
     }
@@ -44,8 +48,8 @@ class Setting {
             return fs.readJSONSync(this.filePath)[propertyName];
         } catch (err) {
             this.createFile();
+            return false;
         }
-
     }
 
     public async set(propertyName: string, value: string | object) {
