@@ -55,7 +55,11 @@ class Setting {
     public async set(propertyName: string, value: string | object) {
         try {
             let settingObj = await fs.readJson(this.filePath);
-            settingObj[propertyName] = value;
+            Object.keys(settingObj).forEach((propertyName) => {
+                if (settingObj[propertyName] === null || settingObj[propertyName] === 0) {
+                  settingObj[propertyName] = value
+                }
+              });
             await fs.outputJSON(this.filePath, settingObj);
 
         } catch (err) {

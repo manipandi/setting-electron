@@ -108,16 +108,20 @@ var Setting = /** @class */ (function () {
     };
     Setting.prototype.set = function (propertyName, value) {
         return __awaiter(this, void 0, void 0, function () {
-            var settingObj, err_3, settingObj;
+            var settingObj_1, err_3, settingObj;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 5]);
                         return [4 /*yield*/, fs.readJson(this.filePath)];
                     case 1:
-                        settingObj = _a.sent();
-                        settingObj[propertyName] = value;
-                        return [4 /*yield*/, fs.outputJSON(this.filePath, settingObj)];
+                        settingObj_1 = _a.sent();
+                        Object.keys(settingObj_1).forEach(function (propertyName) {
+                            if (settingObj_1[propertyName] === null || settingObj_1[propertyName] === 0) {
+                                settingObj_1[propertyName] = value;
+                            }
+                        });
+                        return [4 /*yield*/, fs.outputJSON(this.filePath, settingObj_1)];
                     case 2:
                         _a.sent();
                         return [3 /*break*/, 5];
